@@ -19,7 +19,7 @@ func main() {
 	fmt.Println(largest)
 }
 
-// summarize summariezes numbers separated as a new line
+// summarize summarizes numbers separated as a new line
 // empty lines are treated as a new sum
 func summarize(r io.Reader) []int {
 	scanner := bufio.NewScanner(r)
@@ -54,6 +54,7 @@ func summarize(r io.Reader) []int {
 	return sumSlice
 }
 
+// getLargest returns the largest number in a slice of ints
 func getLargest(s []int) int {
 	var largest int
 	for i := range s {
