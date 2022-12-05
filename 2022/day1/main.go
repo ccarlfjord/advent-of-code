@@ -15,7 +15,7 @@ func main() {
 	}
 
 	sum := summarize(file)
-	largest := largest(sum)
+	largest, _ := largest(sum)
 	fmt.Println(largest)
 }
 
@@ -54,17 +54,30 @@ func summarize(r io.Reader) []int {
 	return sumSlice
 }
 
-// largest returns the largest number in a slice of ints
-func largest(s []int) int {
-	var largest int
+// largest returns the largest number in a slice of ints and its postition
+func largest(s []int) (n int, pos int) {
 	for i := range s {
 		j := i + 1
 		if j >= len(s) {
-			return largest
+			return n, pos
 		}
-		if s[i] > s[j] && s[i] > largest {
-			largest = s[i]
+		if s[i] > s[j] && s[i] > n {
+			n = s[i]
+			pos = i
 		}
 	}
-	return largest
+	return n, pos
+}
+
+// largestThree returns a sum of the three largest numbers in a slice.
+func largestThree(s []int) []int {
+	fmt.Println(len(s))
+	var largestThree []int
+	for len(largestThree) < 3 {
+		n, pos := largest(s)
+		largestThree = append(largestThree, n)
+		s = append(s[:pos], s[pos+1:]...)
+		fmt.Println(len(s))
+	}
+	return largestThree
 }
