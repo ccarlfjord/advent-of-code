@@ -1,27 +1,13 @@
-package main
+package day1
 
 import (
 	"bufio"
-	"fmt"
 	"io"
-	"os"
 	"strconv"
 )
 
-func main() {
-	file, err := os.Open("input")
-	if err != nil {
-		panic(err)
-	}
-
-	sum := summarize(file)
-	largest, _ := largest(sum)
-	fmt.Println(largest)
-}
-
-// summarize summarizes numbers separated as a new line
-// empty lines are treated as a new sum
-func summarize(r io.Reader) []int {
+// Parse returns a slice of summarized values separated as a new line from input
+func Parse(r io.Reader) []int {
 	scanner := bufio.NewScanner(r)
 	var sum int
 	var sumSlice []int
@@ -54,8 +40,8 @@ func summarize(r io.Reader) []int {
 	return sumSlice
 }
 
-// largest returns the largest number in a slice of ints and its postition
-func largest(s []int) (n int, pos int) {
+// largest returns the largest int in a slice and its postition
+func Largest(s []int) (n int, pos int) {
 	for i := range s {
 		j := i + 1
 		if j >= len(s) {
@@ -69,15 +55,21 @@ func largest(s []int) (n int, pos int) {
 	return n, pos
 }
 
-// largestThree returns a sum of the three largest numbers in a slice.
-func largestThree(s []int) []int {
-	fmt.Println(len(s))
+// largestThree returns a slice of the three largest ints from s.
+func ThreeLargest(s []int) []int {
 	var largestThree []int
 	for len(largestThree) < 3 {
-		n, pos := largest(s)
+		n, pos := Largest(s)
 		largestThree = append(largestThree, n)
 		s = append(s[:pos], s[pos+1:]...)
-		fmt.Println(len(s))
 	}
 	return largestThree
+}
+
+func Sum(s []int) int {
+	var sum int
+	for _, i := range s {
+		sum += i
+	}
+	return sum
 }
