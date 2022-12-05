@@ -59,8 +59,11 @@ func Largest(s []int) (n int, pos int) {
 func ThreeLargest(s []int) []int {
 	var largestThree []int
 	for len(largestThree) < 3 {
+		// Get largest value
 		n, pos := Largest(s)
+		// Add largest value to new slice
 		largestThree = append(largestThree, n)
+		// Reassign slice without largest value
 		s = append(s[:pos], s[pos+1:]...)
 	}
 	return largestThree
