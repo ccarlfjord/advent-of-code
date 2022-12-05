@@ -15,7 +15,7 @@ func main() {
 	}
 
 	sum := summarize(file)
-	largest := getLargest(sum)
+	largest := largest(sum)
 	fmt.Println(largest)
 }
 
@@ -54,8 +54,8 @@ func summarize(r io.Reader) []int {
 	return sumSlice
 }
 
-// getLargest returns the largest number in a slice of ints
-func getLargest(s []int) int {
+// largest returns the largest number in a slice of ints
+func largest(s []int) int {
 	var largest int
 	for i := range s {
 		j := i + 1
